@@ -17,6 +17,7 @@ export const configProps = {
   style: Object as PropType<CSSProperties>,
   autoDestroy: NonDefaultBooleanType,
   phrases: Object as PropType<Record<string, string>>,
+  rawExtensions: NonDefaultBooleanType, // so we don't have to install / import codemirror into entry
   // codemirror options
   root: Object as PropType<ShadowRoot | Document>,
   extensions: Array as PropType<EditorStateConfig['extensions']>,

@@ -3,14 +3,14 @@ import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 import { createEditorState, createEditorView, destroyEditorView, getEditorTools } from './codemirror'
 import { useGlobalConfig, DEFAULT_CONFIG } from './config'
-import { props, ConfigProps } from './props'
+import { props, ConfigProps, Props } from './props'
 import { events, EventKey } from './events'
 
 export default defineComponent({
   name: 'VueCodemirror',
   props: { ...props },
   emits: { ...events },
-  setup(props, context) {
+  setup(props: Props, context) {
     const container = shallowRef<HTMLDivElement>()
     const state = shallowRef<EditorState>()
     const view = shallowRef<EditorView>()
@@ -39,7 +39,7 @@ export default defineComponent({
         // The extensions are split into two parts, global and component prop.
         // Only the global part is initialized here.
         // The prop part is dynamically reconfigured after the component is mounted.
-        extensions: defaultConfig.extensions ?? [],
+        extensions: props.rawExtensions ? [] : defaultConfig.extensions ?? [],
         onFocus: (viewUpdate) => context.emit(EventKey.Focus, viewUpdate),
         onBlur: (viewUpdate) => context.emit(EventKey.Blur, viewUpdate),
         onUpdate: (viewUpdate) => context.emit(EventKey.Update, viewUpdate),
